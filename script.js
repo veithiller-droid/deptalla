@@ -129,16 +129,21 @@ powerSwitch?.addEventListener('click', () => {
 });
 renderLighting();
 
-function toggleProjectLight(card) {
-  const lit = card.classList.toggle('is-lit');
-  card.setAttribute('aria-pressed', String(lit));
+
+// V10 — each image can be switched back on independently, even when the master light is off.
+function setLocalLight(zone, on) {
+  const button = zone.querySelector('.local-light-switch');
+  zone.classList.toggle('local-light-on', on);
+  button?.setAttribute('aria-pressed', String(on));
+  const label = button?.querySelector('span:last-child');
+  if (label) label.textContent = on ? 'LICHT AUS' : 'LICHT AN';
 }
-document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('click', () => toggleProjectLight(card));
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleProjectLight(card);
-    }
+
+document.querySelectorAll('.local-light-zone').forEach(zone => {
+  const button = zone.querySelector('.local-light-switch');
+  if (!button) return;
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    setLocalLight(zone, !zone.classList.contains('local-light-on'));
   });
 });
