@@ -82,6 +82,16 @@ function renderLighting() {
   hero.style.setProperty('--ambient-color', `${r},${g},${b}`);
   hero.style.setProperty('--ambient-glow', lightOn ? String(0.42 + t * 0.48) : '0');
 
+  // Global light state: the same control now drives the entire site.
+  const root = document.documentElement;
+  root.style.setProperty('--global-ambient', `${r},${g},${b}`);
+  root.style.setProperty('--global-light', lightOn ? String(0.28 + t * 0.72) : '0.06');
+  root.style.setProperty('--global-sat', lightOn ? String(0.72 + t * 0.38) : '0.18');
+  root.style.setProperty('--global-warm', lightOn ? String((t * 0.34).toFixed(2)) : '0');
+  root.style.setProperty('--global-panel', `rgba(${r},${g},${b},${lightOn ? (0.04 + t * 0.08).toFixed(2) : '0.01'})`);
+  root.style.setProperty('--global-line', `rgba(${r},${g},${b},${lightOn ? (0.18 + t * 0.26).toFixed(2) : '0.06'})`);
+  document.body.classList.toggle('global-light-off', !lightOn);
+
   if (ambientValue) ambientValue.textContent = `${n}%`;
   hero.classList.toggle('light-off', !lightOn);
   powerSwitch?.setAttribute('aria-pressed', String(lightOn));
