@@ -15,15 +15,23 @@
 @media(max-width:620px){.light-console{align-items:stretch;flex-direction:column}.power-switch{width:max-content}.dimmer-control{grid-template-columns:72px minmax(0,1fr) 38px;width:100%;max-width:330px}.site-header{height:68px}.nav{top:68px}.brand-copy strong{font-size:16px}.hero{min-height:610px}.hero-content{min-height:610px;padding-top:65px}.hero h1{font-size:clamp(54px,18vw,90px);margin-bottom:40px}.hero-bottom{grid-template-columns:1fr}.scroll-cue{display:none}.intro{padding-top:80px;padding-bottom:80px}.service-row{grid-template-columns:52px 1fr 30px;min-height:164px;padding-top:34px;padding-bottom:34px;gap:24px}.service-main h3{font-size:32px;line-height:1.14;letter-spacing:-.01em;padding-block:5px;margin-bottom:2px}.service-main p{font-size:13px}.image-break{height:620px}.project-grid{display:block}.project-card{height:360px;margin-bottom:12px}.project-card-large{height:470px}.team-copy{padding-top:70px;padding-bottom:70px}.contact-details{grid-template-columns:1fr}.contact-phone{font-size:30px}footer{flex-direction:column}}
 
 /* INTERACTIVE LIGHT SYSTEM */
-.hero{--ambient:.78;--hero-dark:.47}
-.hero-image{filter:saturate(calc(.72 + var(--ambient)*.28)) brightness(calc(.32 + var(--ambient)*.62));transition:filter .55s ease,transform .8s ease}
-.hero-overlay{transition:background .55s ease,opacity .55s ease}
-.hero.light-off{--ambient:.18;--hero-dark:.8}
-.hero.light-off .hero-image{filter:saturate(.35) brightness(.16)}
-.hero.light-off .hero-overlay{background:linear-gradient(90deg,rgba(3,5,7,.92),rgba(3,5,7,.78) 55%,rgba(3,5,7,.72))}
-.hero.light-off h1 span{color:#777;text-shadow:none}
-.hero h1 span{transition:color .5s ease,text-shadow .5s ease;color:var(--signal);text-shadow:0 0 calc(6px + 20px * var(--ambient)) rgba(207,255,0,.22)}
-.light-console{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:28px;position:relative;z-index:5}.power-switch{min-height:46px;border:1px solid rgba(255,255,255,.45);background:rgba(10,12,13,.55);color:#fff;padding:0 16px;display:inline-flex;align-items:center;gap:10px;font:800 11px/1 Manrope,sans-serif;letter-spacing:.12em;cursor:pointer}.power-dot{width:9px;height:9px;border-radius:50%;background:var(--signal);box-shadow:0 0 14px rgba(207,255,0,.9);transition:.3s}.hero.light-off .power-dot{background:#666;box-shadow:none}.dimmer-control{display:grid;grid-template-columns:auto minmax(120px,220px) 42px;align-items:center;gap:12px;color:#fff;font-size:10px;font-weight:800;letter-spacing:.13em}.dimmer-control input{accent-color:var(--signal);width:100%;cursor:pointer}.dimmer-control output{font-variant-numeric:tabular-nums;color:#ddd}.hero.light-off .dimmer-control{opacity:.42}.hero.light-off .dimmer-control input{pointer-events:none}
-.service-row::after{content:"";position:absolute;left:var(--pad);right:var(--pad);bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--signal),transparent);transform:scaleX(0);transform-origin:left;transition:transform .45s ease;z-index:2}.service-row:hover::after,.service-row:focus-within::after{transform:scaleX(1)}
+.hero{--hero-brightness:.8;--hero-saturation:.94;--hero-hue:0deg;--hero-sepia:.05;--hero-dark:.5;--glow-alpha:.34;--ambient-color:207,255,0}
+.hero-image{filter:brightness(var(--hero-brightness)) saturate(var(--hero-saturation)) hue-rotate(var(--hero-hue)) sepia(var(--hero-sepia));transition:filter .55s ease,transform .8s ease}
+.hero-overlay{background:linear-gradient(90deg,rgba(8,9,10,var(--hero-dark)) 0%,rgba(8,9,10,calc(var(--hero-dark) - .18)) 48%,rgba(8,9,10,calc(var(--hero-dark) - .34)) 100%);transition:background .55s ease}
+.hero.light-off{--hero-brightness:.28;--hero-saturation:.35;--hero-hue:0deg;--hero-sepia:0;--hero-dark:.9;--glow-alpha:.03}
+.hero.light-off .hero-grid{opacity:.22}
+.hero h1 span{transition:color .5s ease,text-shadow .5s ease;color:rgb(var(--ambient-color));text-shadow:0 0 30px rgba(var(--ambient-color),var(--glow-alpha))}
+.light-console{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:34px;position:relative;z-index:5;padding:18px;border:1px solid rgba(255,255,255,.38);background:rgba(8,9,10,.7);backdrop-filter:blur(12px);width:max-content;max-width:100%}
+.power-switch{min-height:58px;border:2px solid rgba(255,255,255,.82);background:#111;color:#fff;padding:0 22px;display:inline-flex;align-items:center;gap:13px;font:800 12px/1 Manrope,sans-serif;letter-spacing:.13em;cursor:pointer;transition:.25s}
+.power-switch:hover{background:#1c1d1f}
+.power-switch[aria-pressed="true"]{border-color:rgb(var(--ambient-color));box-shadow:0 0 0 1px rgba(var(--ambient-color),.25),0 0 28px rgba(var(--ambient-color),.18)}
+.power-dot{width:13px;height:13px;border-radius:50%;background:rgb(var(--ambient-color));box-shadow:0 0 18px rgba(var(--ambient-color),.95);transition:.3s}
+.hero.light-off .power-dot{background:#666;box-shadow:none}
+.dimmer-control{display:grid;grid-template-columns:auto minmax(180px,300px) 48px;align-items:center;gap:14px;color:#fff;font-size:11px;font-weight:800;letter-spacing:.13em;padding:0 4px}
+.dimmer-control input{width:100%;cursor:pointer;accent-color:rgb(var(--ambient-color));height:30px}
+.dimmer-control output{font-variant-numeric:tabular-nums;color:#fff;font-size:12px}.hero.light-off .dimmer-control{opacity:.38}.hero.light-off .dimmer-control input{pointer-events:none}
+.ambient-caption{width:100%;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#aaa;margin-top:-6px}
 .project-card::after{content:"LICHT AN";position:absolute;right:18px;top:18px;padding:8px 10px;background:rgba(10,12,13,.72);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:9px;font-weight:800;letter-spacing:.14em;z-index:3;transition:.25s}.project-card.is-lit::after{content:"LICHT AUS";background:var(--signal);color:var(--ink);border-color:var(--signal)}.project-card.is-lit img{filter:saturate(1.05) brightness(1.05);transform:scale(1.035)}.project-card{outline:none}.project-card:focus-visible{box-shadow:inset 0 0 0 2px var(--signal)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.project-card img,.service-row:before,.button{transition:none}}
+
+@media(max-width:620px){.light-console{width:100%;padding:16px;gap:14px}.power-switch{width:100%;justify-content:center}.dimmer-control{grid-template-columns:74px minmax(0,1fr) 44px;width:100%;max-width:none}}

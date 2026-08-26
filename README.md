@@ -55,3 +55,9 @@ Aktuelle Projekte, Mitarbeiterstand, Datenschutz/Impressum und finale Texte bitt
 - Ambient-/Dimmer-Regler verändert die reale Hero-Lichtstimmung
 - Projektkarten lassen sich per Klick/Tap ein- und ausschalten
 - Leistungszeilen erhalten einen dezenten elektrischen Impuls bei Interaktion
+
+
+## v7
+- Lichtschalter deutlich größer und prominenter
+- Fehlerhafte CSS-Berechnung der Lichtwirkung entfernt
+- Ambient-Regler verändert Helligkeit, Sättigung, Farbtemperatur, Overlay und Akzentfarbe sichtbar

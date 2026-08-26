@@ -55,7 +55,30 @@ const ambientValue = document.querySelector('#ambientValue');
 
 function setAmbient(value) {
   const n = Math.max(20, Math.min(100, Number(value) || 78));
-  hero?.style.setProperty('--ambient', String(n / 100));
+  if (!hero) return;
+
+  // 20 = kühl/dunkler, 100 = warm/hell.
+  const t = (n - 20) / 80;
+  const brightness = 0.48 + (t * 0.62);
+  const saturation = 0.72 + (t * 0.42);
+  const sepia = 0.02 + (t * 0.20);
+  const hue = -12 + (t * 28);
+  const dark = 0.76 - (t * 0.34);
+  const glow = 0.12 + (t * 0.42);
+
+  // Akzentfarbe wandert von kühlem Cyan/Grün zu warmem Gelb/Orange.
+  const r = Math.round(80 + (t * 175));
+  const g = Math.round(220 + (t * 25));
+  const b = Math.round(255 - (t * 210));
+
+  hero.style.setProperty('--hero-brightness', brightness.toFixed(2));
+  hero.style.setProperty('--hero-saturation', saturation.toFixed(2));
+  hero.style.setProperty('--hero-sepia', sepia.toFixed(2));
+  hero.style.setProperty('--hero-hue', `${hue.toFixed(1)}deg`);
+  hero.style.setProperty('--hero-dark', dark.toFixed(2));
+  hero.style.setProperty('--glow-alpha', glow.toFixed(2));
+  hero.style.setProperty('--ambient-color', `${r},${g},${b}`);
+
   if (ambientValue) ambientValue.textContent = `${n}%`;
 }
 ambientRange?.addEventListener('input', e => setAmbient(e.target.value));
