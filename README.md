@@ -61,3 +61,6 @@ Aktuelle Projekte, Mitarbeiterstand, Datenschutz/Impressum und finale Texte bitt
 - Lichtschalter deutlich größer und prominenter
 - Fehlerhafte CSS-Berechnung der Lichtwirkung entfernt
 - Ambient-Regler verändert Helligkeit, Sättigung, Farbtemperatur, Overlay und Akzentfarbe sichtbar
+
+
+V8: cache-busting for CSS/JS and direct visible hero lighting state rendering.

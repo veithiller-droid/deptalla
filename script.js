@@ -47,49 +47,77 @@ if (imageBreak && !reduced) {
 }
 
 
+
 const hero = document.querySelector('.hero');
+const heroImage = document.querySelector('.hero-image');
+const heroOverlay = document.querySelector('.hero-overlay');
 const powerSwitch = document.querySelector('#powerSwitch');
 const powerLabel = powerSwitch?.querySelector('.power-label');
 const ambientRange = document.querySelector('#ambientRange');
 const ambientValue = document.querySelector('#ambientValue');
 
-function setAmbient(value) {
-  const n = Math.max(20, Math.min(100, Number(value) || 78));
+let lightOn = true;
+
+function ambientRGB(t) {
+  // cold blue/cyan -> neutral -> warm amber/orange
+  const stops = [
+    [55, 155, 255],
+    [110, 235, 255],
+    [230, 245, 210],
+    [255, 205, 90],
+    [255, 125, 45]
+  ];
+  const x = Math.max(0, Math.min(1, t)) * (stops.length - 1);
+  const i = Math.min(stops.length - 2, Math.floor(x));
+  const f = x - i;
+  return stops[i].map((v, k) => Math.round(v + (stops[i+1][k] - v) * f));
+}
+
+function renderLighting() {
   if (!hero) return;
-
-  // 20 = kühl/dunkler, 100 = warm/hell.
+  const n = Math.max(20, Math.min(100, Number(ambientRange?.value || 78)));
   const t = (n - 20) / 80;
-  const brightness = 0.48 + (t * 0.62);
-  const saturation = 0.72 + (t * 0.42);
-  const sepia = 0.02 + (t * 0.20);
-  const hue = -12 + (t * 28);
-  const dark = 0.76 - (t * 0.34);
-  const glow = 0.12 + (t * 0.42);
+  const [r,g,b] = ambientRGB(t);
 
-  // Akzentfarbe wandert von kühlem Cyan/Grün zu warmem Gelb/Orange.
-  const r = Math.round(80 + (t * 175));
-  const g = Math.round(220 + (t * 25));
-  const b = Math.round(255 - (t * 210));
-
-  hero.style.setProperty('--hero-brightness', brightness.toFixed(2));
-  hero.style.setProperty('--hero-saturation', saturation.toFixed(2));
-  hero.style.setProperty('--hero-sepia', sepia.toFixed(2));
-  hero.style.setProperty('--hero-hue', `${hue.toFixed(1)}deg`);
-  hero.style.setProperty('--hero-dark', dark.toFixed(2));
-  hero.style.setProperty('--glow-alpha', glow.toFixed(2));
   hero.style.setProperty('--ambient-color', `${r},${g},${b}`);
+  hero.style.setProperty('--ambient-glow', lightOn ? String(0.42 + t * 0.48) : '0');
 
   if (ambientValue) ambientValue.textContent = `${n}%`;
-}
-ambientRange?.addEventListener('input', e => setAmbient(e.target.value));
-setAmbient(ambientRange?.value || 78);
+  hero.classList.toggle('light-off', !lightOn);
+  powerSwitch?.setAttribute('aria-pressed', String(lightOn));
+  if (powerLabel) powerLabel.textContent = lightOn ? 'LICHT AN' : 'LICHT AUS';
 
+  if (heroImage) {
+    if (lightOn) {
+      const brightness = 0.72 + t * 0.58;
+      const saturation = 0.82 + t * 0.35;
+      const sepia = t * 0.22;
+      const hue = -18 + t * 35;
+      heroImage.style.filter = `brightness(${brightness.toFixed(2)}) saturate(${saturation.toFixed(2)}) sepia(${sepia.toFixed(2)}) hue-rotate(${hue.toFixed(1)}deg)`;
+      heroImage.style.opacity = '0.96';
+    } else {
+      heroImage.style.filter = 'brightness(.12) saturate(.15)';
+      heroImage.style.opacity = '.40';
+    }
+  }
+
+  if (heroOverlay) {
+    if (lightOn) {
+      const a1 = 0.70 - t * 0.32;
+      const a2 = 0.48 - t * 0.26;
+      heroOverlay.style.background = `linear-gradient(90deg, rgba(5,7,9,${a1.toFixed(2)}) 0%, rgba(${r},${g},${b},${(0.08 + t*0.12).toFixed(2)}) 58%, rgba(5,7,9,${a2.toFixed(2)}) 100%)`;
+    } else {
+      heroOverlay.style.background = 'rgba(0,0,0,.88)';
+    }
+  }
+}
+
+ambientRange?.addEventListener('input', renderLighting);
 powerSwitch?.addEventListener('click', () => {
-  if (!hero) return;
-  const isOff = hero.classList.toggle('light-off');
-  powerSwitch.setAttribute('aria-pressed', String(!isOff));
-  if (powerLabel) powerLabel.textContent = isOff ? 'LICHT AUS' : 'LICHT AN';
+  lightOn = !lightOn;
+  renderLighting();
 });
+renderLighting();
 
 function toggleProjectLight(card) {
   const lit = card.classList.toggle('is-lit');

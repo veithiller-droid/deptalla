@@ -35,3 +35,22 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.project-card img,.service-row:before,.button{transition:none}}
 
 @media(max-width:620px){.light-console{width:100%;padding:16px;gap:14px}.power-switch{width:100%;justify-content:center}.dimmer-control{grid-template-columns:74px minmax(0,1fr) 44px;width:100%;max-width:none}}
+
+
+/* V8 — unmistakable live lighting states */
+.hero{isolation:isolate;background:#050607}
+.hero-image{opacity:.92;transition:filter .25s ease,opacity .25s ease,transform .45s ease}
+.hero-overlay{z-index:1;transition:background .25s ease,opacity .25s ease}
+.hero-grid,.hero-content,.scroll-cue{z-index:2}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(circle at 68% 42%, rgba(var(--ambient-color),.40) 0%, rgba(var(--ambient-color),.17) 28%, rgba(var(--ambient-color),0) 62%);mix-blend-mode:screen;opacity:var(--ambient-glow,.7);transition:background .25s ease,opacity .25s ease}
+.hero.light-off .hero-image{filter:brightness(.12) saturate(.15)!important;opacity:.40}
+.hero.light-off .hero-overlay{background:rgba(0,0,0,.88)!important}
+.hero.light-off::after{opacity:0!important}
+.hero.light-off h1 span{color:#777!important;text-shadow:none!important}
+.light-console{box-shadow:0 0 0 1px rgba(255,255,255,.08),0 18px 55px rgba(0,0,0,.32)}
+.power-switch{font-size:14px;min-height:66px;padding:0 28px;border-width:2px}
+.power-dot{width:16px;height:16px}
+.dimmer-control{font-size:12px}
+.dimmer-control input{height:38px}
+.hero.light-off .dimmer-control{opacity:.55}
+.hero.light-off .dimmer-control input{pointer-events:auto}
