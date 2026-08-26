@@ -48,3 +48,10 @@ Danach können die Bildpfade in `index.html` von den Remote-URLs auf `assets/ima
 ## Vor dem Livegang
 
 Aktuelle Projekte, Mitarbeiterstand, Datenschutz/Impressum und finale Texte bitte noch mit dem Betreiber abgleichen.
+
+
+## v6
+- Interaktiver Lichtschalter im Hero
+- Ambient-/Dimmer-Regler verändert die reale Hero-Lichtstimmung
+- Projektkarten lassen sich per Klick/Tap ein- und ausschalten
+- Leistungszeilen erhalten einen dezenten elektrischen Impuls bei Interaktion

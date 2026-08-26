@@ -45,3 +45,39 @@ if (imageBreak && !reduced) {
     }
   }, { passive: true });
 }
+
+
+const hero = document.querySelector('.hero');
+const powerSwitch = document.querySelector('#powerSwitch');
+const powerLabel = powerSwitch?.querySelector('.power-label');
+const ambientRange = document.querySelector('#ambientRange');
+const ambientValue = document.querySelector('#ambientValue');
+
+function setAmbient(value) {
+  const n = Math.max(20, Math.min(100, Number(value) || 78));
+  hero?.style.setProperty('--ambient', String(n / 100));
+  if (ambientValue) ambientValue.textContent = `${n}%`;
+}
+ambientRange?.addEventListener('input', e => setAmbient(e.target.value));
+setAmbient(ambientRange?.value || 78);
+
+powerSwitch?.addEventListener('click', () => {
+  if (!hero) return;
+  const isOff = hero.classList.toggle('light-off');
+  powerSwitch.setAttribute('aria-pressed', String(!isOff));
+  if (powerLabel) powerLabel.textContent = isOff ? 'LICHT AUS' : 'LICHT AN';
+});
+
+function toggleProjectLight(card) {
+  const lit = card.classList.toggle('is-lit');
+  card.setAttribute('aria-pressed', String(lit));
+}
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('click', () => toggleProjectLight(card));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleProjectLight(card);
+    }
+  });
+});

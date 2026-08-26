@@ -38,6 +38,16 @@
           <p>Planung, Installation und Service für private, gewerbliche und anspruchsvolle technische Projekte.</p>
           <a class="button button-accent" href="#kontakt">Projekt anfragen <span>↗</span></a>
         </div>
+        <div class="light-console" aria-label="Lichtsteuerung">
+          <button class="power-switch" id="powerSwitch" type="button" aria-pressed="true">
+            <span class="power-dot"></span><span class="power-label">LICHT AN</span>
+          </button>
+          <label class="dimmer-control" for="ambientRange">
+            <span>AMBIENT</span>
+            <input id="ambientRange" type="range" min="20" max="100" value="78" step="1" />
+            <output id="ambientValue" for="ambientRange">78%</output>
+          </label>
+        </div>
       </div>
       <a href="#leistungen" class="scroll-cue">Scroll <span>↓</span></a>
     </section>
@@ -121,15 +131,15 @@
         <p>Große Bilder, wenig Text, klare Aussagen. Diese Fläche kann später direkt mit echten aktuellen Referenzen gefüttert werden.</p>
       </div>
       <div class="project-grid">
-        <article class="project-card project-card-large reveal">
+        <article class="project-card project-card-large reveal" tabindex="0" aria-pressed="false">
           <img src="https://elektrotechnik-deptalla.de/wp-content/uploads/2018/04/deptalla_beleuchtung.jpg" alt="Beleuchtungsprojekt" />
           <div class="project-meta"><span>01 / Licht</span><h3>Beleuchtung<br>Innen & Außen</h3></div>
         </article>
-        <article class="project-card reveal">
+        <article class="project-card reveal" tabindex="0" aria-pressed="false">
           <img src="https://elektrotechnik-deptalla.de/wp-content/uploads/2018/04/deptalla_netzwerk.jpg" alt="Netzwerkverkabelung" />
           <div class="project-meta"><span>02 / Netzwerk</span><h3>Vernetzt.<br>Sauber geplant.</h3></div>
         </article>
-        <article class="project-card reveal">
+        <article class="project-card reveal" tabindex="0" aria-pressed="false">
           <img src="https://elektrotechnik-deptalla.de/wp-content/uploads/2018/04/deptalla_sat.jpg" alt="Satellitenanlage" />
           <div class="project-meta"><span>03 / Empfang</span><h3>SAT &<br>Antennen.</h3></div>
         </article>
