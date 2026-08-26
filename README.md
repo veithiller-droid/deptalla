@@ -1,12 +1,9 @@
-# Deptalla Modern v9
+# Deptalla Modern v12
 
-Globales Lichtsystem für die komplette Seite.
+V12 fixes local detail-image lighting:
 
-- Licht AN/AUS wirkt auf Hero, Header, Leistungen, Bilder, Projekte, Team, Partner und Kontakt.
-- Ambient-Regler steuert global Helligkeit und Farbtemperatur von kühl bis warm.
-- Projektkarten behalten ihre eigene Licht-Interaktion.
-- Cache-Busting auf `?v=9`.
-
-
-## V10
-Der Hauptschalter kann die ganze Seite abdunkeln. Bildbereiche besitzen jetzt eigene LICHT AN/AUS-Schalter und können unabhängig vom Hauptschalter wieder aufgehellt werden.
+- local LICHT AUS is now truly dark
+- OFF still visibly carries the selected ambient color
+- local LICHT AN restores brightness but keeps a lighter ambient tint
+- tint remains active whether the master light is on or off
+- cache-busting updated to v12

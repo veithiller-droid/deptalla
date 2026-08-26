@@ -143,3 +143,108 @@ body.global-light-off .project-card.local-light-on{box-shadow:inset 0 0 0 1px rg
 .project-card{cursor:default}
 
 @media(max-width:620px){.local-light-switch{top:12px;right:12px;min-height:42px;padding:0 12px;font-size:9px}}
+
+/* V11 — LOCAL OFF STATE FOLLOWS AMBIENT COLOR */
+.local-light-zone::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(135deg,
+    rgba(var(--global-ambient),.34),
+    rgba(var(--global-ambient),.12) 48%,
+    rgba(0,0,0,.34));
+  mix-blend-mode:color;
+  opacity:.72;
+  transition:opacity .35s ease,background .35s ease;
+}
+.local-light-zone:not(.local-light-on)>img{
+  filter:brightness(.48) saturate(.68) contrast(1.04)!important;
+  opacity:.82;
+  transition:filter .35s ease,opacity .35s ease,transform .7s cubic-bezier(.2,.8,.2,1);
+}
+.local-light-zone.local-light-on::after{
+  opacity:0;
+}
+.local-light-zone.local-light-on>img{
+  filter:brightness(1.03) saturate(1.05) sepia(var(--global-warm))!important;
+  opacity:1!important;
+}
+.local-light-zone .local-light-switch{z-index:9}
+.project-card .project-meta{z-index:5}
+.image-break .image-break-copy{z-index:5}
+
+/* Master OFF remains dark, but local OFF still carries the selected ambient tint. */
+body.global-light-off .local-light-zone:not(.local-light-on)::after{
+  background:linear-gradient(135deg,
+    rgba(var(--global-ambient),.42),
+    rgba(var(--global-ambient),.18) 48%,
+    rgba(0,0,0,.58));
+  opacity:.88;
+}
+body.global-light-off .local-light-zone:not(.local-light-on)>img{
+  filter:brightness(.24) saturate(.42) contrast(1.08)!important;
+  opacity:.68!important;
+}
+
+/* The existing local ON override stays authoritative and removes the tint. */
+body.global-light-off .local-light-zone.local-light-on::after{opacity:0!important}
+
+@media(prefers-reduced-motion:reduce){
+  .local-light-zone::after,.local-light-zone>img{transition:none!important}
+}
+
+/* V12 — LOCAL LIGHT STATES: TRUE OFF + AMBIENT TINT IN BOTH STATES */
+/* Override V11. The ambient tint now stays visible whether a detail light is on or off. */
+.local-light-zone::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  mix-blend-mode:normal;
+  opacity:1!important;
+  transition:background .35s ease,opacity .35s ease;
+}
+
+/* OFF: genuinely dark, but the selected ambient color remains clearly visible. */
+.local-light-zone:not(.local-light-on)::after,
+body.global-light-off .local-light-zone:not(.local-light-on)::after{
+  background:
+    linear-gradient(rgba(var(--global-ambient),.30),rgba(var(--global-ambient),.30)),
+    linear-gradient(rgba(0,0,0,.58),rgba(0,0,0,.58));
+  opacity:1!important;
+}
+.local-light-zone:not(.local-light-on)>img,
+body.global-light-off .local-light-zone:not(.local-light-on)>img{
+  filter:brightness(.16) saturate(.38) contrast(1.08)!important;
+  opacity:.78!important;
+}
+
+/* ON: bright again, but deliberately retains a lighter ambient tint. */
+.local-light-zone.local-light-on::after,
+body.global-light-off .local-light-zone.local-light-on::after{
+  background:
+    linear-gradient(rgba(var(--global-ambient),.16),rgba(var(--global-ambient),.16)),
+    radial-gradient(circle at 68% 36%,rgba(var(--global-ambient),.18),transparent 58%);
+  opacity:1!important;
+}
+.local-light-zone.local-light-on>img,
+body.global-light-off .local-light-zone.local-light-on>img{
+  filter:brightness(1.06) saturate(1.08) contrast(1.02)!important;
+  opacity:1!important;
+}
+
+/* Keep controls and readable copy above the tint layer. */
+.local-light-zone .local-light-switch{z-index:10}
+.project-card .project-meta,
+.image-break .image-break-copy{z-index:6}
+
+/* A small ambient edge makes the color state legible even on naturally dark photos. */
+.local-light-zone.local-light-on{
+  box-shadow:inset 0 0 0 1px rgba(var(--global-ambient),.42);
+}
+.local-light-zone:not(.local-light-on){
+  box-shadow:inset 0 0 0 1px rgba(var(--global-ambient),.18);
+}
