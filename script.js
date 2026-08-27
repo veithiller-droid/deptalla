@@ -154,6 +154,20 @@ floatingPowerSwitch?.addEventListener('click', toggleGlobalLight);
 renderLighting();
 
 
+const blackoutIntro = document.querySelector('#blackoutIntro');
+const blackoutSwitch = document.querySelector('#blackoutSwitch');
+
+function enterSite() {
+  document.body.classList.remove('site-locked');
+  document.body.classList.add('site-entered');
+  // The site powers up with the global light ON; ambient controls become available immediately.
+  lightOn = true;
+  renderLighting();
+  window.setTimeout(() => blackoutIntro?.setAttribute('aria-hidden', 'true'), 850);
+}
+
+blackoutSwitch?.addEventListener('click', enterSite);
+
 // V10 — each image can be switched back on independently, even when the master light is off.
 function setLocalLight(zone, on) {
   const button = zone.querySelector('.local-light-switch');

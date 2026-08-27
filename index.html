@@ -8,9 +8,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
-<body>
+<body class="site-locked">
+  <div class="blackout-intro" id="blackoutIntro" aria-label="Website einschalten">
+    <div class="blackout-inner">
+      <p class="blackout-kicker">ELEKTROTECHNIK DEPTALLA</p>
+      <button class="blackout-switch" id="blackoutSwitch" type="button" aria-label="Licht einschalten">
+        <span class="blackout-icon" aria-hidden="true">⏻</span>
+        <span>LICHT AN</span>
+      </button>
+    </div>
+  </div>
   <header class="site-header" id="top">
     <a class="brand" href="#top" aria-label="Deptalla Startseite">
       <span class="brand-mark">D</span>
@@ -206,6 +215,6 @@
     </label>
   </aside>
 
-  <script src="script.js?v=14"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>
