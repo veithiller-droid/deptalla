@@ -319,3 +319,53 @@ body.global-light-off .floating-power-dot{
   .floating-light-console{grid-template-columns:72px 1fr}
   .floating-power{padding:0 8px;font-size:10px}
 }
+
+
+/* V14 — broader ambient spectrum + clearer tint on project images */
+.dimmer-control input,
+.floating-ambient input{
+  accent-color: rgb(var(--global-ambient));
+}
+.dimmer-control input[type="range"],
+.floating-ambient input[type="range"]{
+  background: linear-gradient(90deg,
+    rgb(166,92,255) 0%,
+    rgb(70,108,255) 15%,
+    rgb(40,210,255) 30%,
+    rgb(70,240,170) 45%,
+    rgb(215,255,80) 60%,
+    rgb(255,190,55) 73%,
+    rgb(255,105,45) 87%,
+    rgb(255,70,120) 100%);
+  border-radius:999px;
+}
+/* The three center project images now visibly inherit the selected ambient color in both states. */
+.project-card.local-light-zone::after{
+  content:"";
+  display:block!important;
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(var(--global-ambient),.28),rgba(var(--global-ambient),.28)),
+    radial-gradient(circle at 65% 35%,rgba(var(--global-ambient),.30),transparent 62%);
+  mix-blend-mode:color;
+  opacity:.95!important;
+  transition:background .3s ease,opacity .3s ease;
+}
+.project-card.local-light-zone.local-light-on::after{
+  background:
+    linear-gradient(rgba(var(--global-ambient),.16),rgba(var(--global-ambient),.16)),
+    radial-gradient(circle at 65% 35%,rgba(var(--global-ambient),.18),transparent 62%);
+  mix-blend-mode:color;
+  opacity:.82!important;
+}
+body.global-light-off .project-card.local-light-zone:not(.local-light-on)::after{
+  background:
+    linear-gradient(rgba(var(--global-ambient),.42),rgba(var(--global-ambient),.42)),
+    radial-gradient(circle at 65% 35%,rgba(var(--global-ambient),.36),transparent 60%);
+  opacity:1!important;
+}
+.project-card .project-meta{z-index:6}
+.local-light-switch{letter-spacing:.14em}

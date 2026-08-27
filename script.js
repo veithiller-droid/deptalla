@@ -63,13 +63,16 @@ const floatingAmbientValue = document.querySelector('#floatingAmbientValue');
 let lightOn = true;
 
 function ambientRGB(t) {
-  // cold blue/cyan -> neutral -> warm amber/orange
+  // Expanded full ambient spectrum: violet -> blue -> cyan -> green -> amber -> orange -> red/pink.
   const stops = [
-    [55, 155, 255],
-    [110, 235, 255],
-    [230, 245, 210],
-    [255, 205, 90],
-    [255, 125, 45]
+    [166, 92, 255],
+    [70, 108, 255],
+    [40, 210, 255],
+    [70, 240, 170],
+    [215, 255, 80],
+    [255, 190, 55],
+    [255, 105, 45],
+    [255, 70, 120]
   ];
   const x = Math.max(0, Math.min(1, t)) * (stops.length - 1);
   const i = Math.min(stops.length - 2, Math.floor(x));
@@ -80,10 +83,10 @@ function ambientRGB(t) {
 function renderLighting() {
   if (!hero) return;
   const sourceRange = ambientRange || floatingAmbientRange;
-  const n = Math.max(20, Math.min(100, Number(sourceRange?.value || 78)));
+  const n = Math.max(0, Math.min(100, Number(sourceRange?.value || 62)));
   if (ambientRange && Number(ambientRange.value) !== n) ambientRange.value = String(n);
   if (floatingAmbientRange && Number(floatingAmbientRange.value) !== n) floatingAmbientRange.value = String(n);
-  const t = (n - 20) / 80;
+  const t = n / 100;
   const [r,g,b] = ambientRGB(t);
 
   hero.style.setProperty('--ambient-color', `${r},${g},${b}`);
@@ -103,9 +106,9 @@ function renderLighting() {
   if (floatingAmbientValue) floatingAmbientValue.textContent = `${n}%`;
   hero.classList.toggle('light-off', !lightOn);
   powerSwitch?.setAttribute('aria-pressed', String(lightOn));
-  if (powerLabel) powerLabel.textContent = lightOn ? 'LICHT AN' : 'LICHT AUS';
+  if (powerLabel) powerLabel.textContent = lightOn ? 'ON' : 'OFF';
   floatingPowerSwitch?.setAttribute('aria-pressed', String(lightOn));
-  if (floatingPowerText) floatingPowerText.textContent = lightOn ? 'AN' : 'AUS';
+  if (floatingPowerText) floatingPowerText.textContent = lightOn ? 'ON' : 'OFF';
 
   if (heroImage) {
     if (lightOn) {
@@ -133,7 +136,7 @@ function renderLighting() {
 }
 
 function setAmbientFrom(range) {
-  const value = String(Math.max(20, Math.min(100, Number(range?.value || 78))));
+  const value = String(Math.max(0, Math.min(100, Number(range?.value || 62))));
   if (ambientRange) ambientRange.value = value;
   if (floatingAmbientRange) floatingAmbientRange.value = value;
   renderLighting();
@@ -157,7 +160,7 @@ function setLocalLight(zone, on) {
   zone.classList.toggle('local-light-on', on);
   button?.setAttribute('aria-pressed', String(on));
   const label = button?.querySelector('span:last-child');
-  if (label) label.textContent = on ? 'LICHT AUS' : 'LICHT AN';
+  if (label) label.textContent = on ? 'OFF' : 'ON';
 }
 
 document.querySelectorAll('.local-light-zone').forEach(zone => {

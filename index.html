@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=13" />
+  <link rel="stylesheet" href="styles.css?v=14" />
 </head>
 <body>
   <header class="site-header" id="top">
@@ -40,14 +40,14 @@
         </div>
         <div class="light-console" aria-label="Lichtsteuerung">
           <button class="power-switch" id="powerSwitch" type="button" aria-pressed="true">
-            <span class="power-dot"></span><span class="power-label">LICHT AN</span>
+            <span class="power-dot"></span><span class="power-label">ON</span>
           </button>
           <label class="dimmer-control" for="ambientRange">
             <span>AMBIENT</span>
-            <input id="ambientRange" type="range" min="20" max="100" value="78" step="1" />
-            <output id="ambientValue" for="ambientRange">78%</output>
+            <input id="ambientRange" type="range" min="0" max="100" value="62" step="1" />
+            <output id="ambientValue" for="ambientRange">62%</output>
           </label>
-          <div class="ambient-caption">KÜHL ← FARBSTIMMUNG → WARM</div>
+          <div class="ambient-caption">VIOLETT · BLAU · CYAN · GRÜN · AMBER · ROT</div>
         </div>
       </div>
       <a href="#leistungen" class="scroll-cue">Scroll <span>↓</span></a>
@@ -117,7 +117,7 @@
 
     <section class="image-break reveal local-light-zone">
       <img src="https://elektrotechnik-deptalla.de/wp-content/uploads/2018/04/hausinstallation.jpg" alt="Planung einer Elektroinstallation" />
-      <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>LICHT AN</span></button>
+      <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>ON</span></button>
       <div class="image-break-copy">
         <span>Planung · Installation · Service</span>
         <h2>Keine halben<br>Sachen.</h2>
@@ -134,17 +134,17 @@
       </div>
       <div class="project-grid">
         <article class="project-card project-card-large reveal local-light-zone">
-          <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>LICHT AN</span></button>
+          <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>ON</span></button>
           <img src="https://elektrotechnik-deptalla.de/wp-content/uploads/2018/04/deptalla_beleuchtung.jpg" alt="Beleuchtungsprojekt" />
           <div class="project-meta"><span>01 / Licht</span><h3>Beleuchtung<br>Innen & Außen</h3></div>
         </article>
         <article class="project-card reveal local-light-zone">
-          <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>LICHT AN</span></button>
+          <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>ON</span></button>
           <img src="https://elektrotechnik-deptalla.de/wp-content/uploads/2018/04/deptalla_netzwerk.jpg" alt="Netzwerkverkabelung" />
           <div class="project-meta"><span>02 / Netzwerk</span><h3>Vernetzt.<br>Sauber geplant.</h3></div>
         </article>
         <article class="project-card reveal local-light-zone">
-          <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>LICHT AN</span></button>
+          <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>ON</span></button>
           <img src="https://elektrotechnik-deptalla.de/wp-content/uploads/2018/04/deptalla_sat.jpg" alt="Satellitenanlage" />
           <div class="project-meta"><span>03 / Empfang</span><h3>SAT &<br>Antennen.</h3></div>
         </article>
@@ -153,7 +153,7 @@
 
     <section class="team" id="team">
       <div class="team-image-wrap reveal local-light-zone">
-        <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>LICHT AN</span></button>
+        <button class="local-light-switch" type="button" aria-pressed="false"><span class="local-light-dot"></span><span>ON</span></button>
         <img src="https://elektrotechnik-deptalla.de/wp-content/uploads/2018/08/deptalla_gruppenbild.png" alt="Team von Elektrotechnik Deptalla" />
       </div>
       <div class="team-copy section-pad reveal">
@@ -195,17 +195,17 @@
   </footer>
 
   <aside class="floating-light-console" id="floatingLightConsole" aria-label="Schwebende Lichtsteuerung">
-    <button class="floating-power" id="floatingPowerSwitch" type="button" aria-pressed="true" title="Licht an/aus">
+    <button class="floating-power" id="floatingPowerSwitch" type="button" aria-pressed="true" title="On/Off">
       <span class="floating-power-dot"></span>
       <span class="floating-power-text">AN</span>
     </button>
     <label class="floating-ambient" for="floatingAmbientRange">
       <span>AMBIENT</span>
-      <input id="floatingAmbientRange" type="range" min="20" max="100" value="78" step="1" />
-      <output id="floatingAmbientValue" for="floatingAmbientRange">78%</output>
+      <input id="floatingAmbientRange" type="range" min="0" max="100" value="62" step="1" />
+      <output id="floatingAmbientValue" for="floatingAmbientRange">62%</output>
     </label>
   </aside>
 
-  <script src="script.js?v=13"></script>
+  <script src="script.js?v=14"></script>
 </body>
 </html>
