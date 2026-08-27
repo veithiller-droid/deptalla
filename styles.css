@@ -248,3 +248,74 @@ body.global-light-off .local-light-zone.local-light-on>img{
 .local-light-zone:not(.local-light-on){
   box-shadow:inset 0 0 0 1px rgba(var(--global-ambient),.18);
 }
+
+
+/* V13 — FLOATING GLOBAL LIGHT CONTROL */
+.floating-light-console{
+  position:fixed;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:120;
+  width:168px;
+  padding:12px;
+  display:grid;
+  gap:10px;
+  background:rgba(10,11,12,.84);
+  color:#fff;
+  border:1px solid rgba(var(--global-ambient),.44);
+  border-radius:16px;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 14px 34px rgba(0,0,0,.22),0 0 28px rgba(var(--global-ambient),.10);
+  transition:border-color .3s ease,box-shadow .3s ease,background .3s ease;
+}
+.floating-power{
+  min-height:46px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:0 12px;
+  font:800 11px Manrope,Arial,sans-serif;
+  letter-spacing:.12em;
+  cursor:pointer;
+}
+.floating-power-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:rgb(var(--global-ambient));
+  box-shadow:0 0 16px rgba(var(--global-ambient),.9);
+  transition:.25s ease;
+}
+body.global-light-off .floating-power-dot{
+  background:#343434;
+  box-shadow:none;
+}
+.floating-ambient{display:grid;grid-template-columns:1fr auto;gap:7px 8px;align-items:center;font-size:8px;font-weight:800;letter-spacing:.12em}
+.floating-ambient>span{grid-column:1/2}.floating-ambient output{grid-column:2/3;text-align:right;font-size:9px;color:#ddd}
+.floating-ambient input{grid-column:1/3;width:100%;accent-color:rgb(var(--global-ambient));cursor:pointer}
+@media(max-width:900px){
+  .floating-light-console{
+    top:auto;
+    right:12px;
+    bottom:12px;
+    transform:none;
+    width:min(330px,calc(100% - 24px));
+    grid-template-columns:88px 1fr;
+    align-items:center;
+    padding:10px;
+    border-radius:14px;
+  }
+  .floating-power{min-height:44px}
+  .floating-ambient{gap:5px 8px}
+}
+@media(max-width:420px){
+  .floating-light-console{grid-template-columns:72px 1fr}
+  .floating-power{padding:0 8px;font-size:10px}
+}

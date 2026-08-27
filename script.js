@@ -55,6 +55,10 @@ const powerSwitch = document.querySelector('#powerSwitch');
 const powerLabel = powerSwitch?.querySelector('.power-label');
 const ambientRange = document.querySelector('#ambientRange');
 const ambientValue = document.querySelector('#ambientValue');
+const floatingPowerSwitch = document.querySelector('#floatingPowerSwitch');
+const floatingPowerText = floatingPowerSwitch?.querySelector('.floating-power-text');
+const floatingAmbientRange = document.querySelector('#floatingAmbientRange');
+const floatingAmbientValue = document.querySelector('#floatingAmbientValue');
 
 let lightOn = true;
 
@@ -75,7 +79,10 @@ function ambientRGB(t) {
 
 function renderLighting() {
   if (!hero) return;
-  const n = Math.max(20, Math.min(100, Number(ambientRange?.value || 78)));
+  const sourceRange = ambientRange || floatingAmbientRange;
+  const n = Math.max(20, Math.min(100, Number(sourceRange?.value || 78)));
+  if (ambientRange && Number(ambientRange.value) !== n) ambientRange.value = String(n);
+  if (floatingAmbientRange && Number(floatingAmbientRange.value) !== n) floatingAmbientRange.value = String(n);
   const t = (n - 20) / 80;
   const [r,g,b] = ambientRGB(t);
 
@@ -93,9 +100,12 @@ function renderLighting() {
   document.body.classList.toggle('global-light-off', !lightOn);
 
   if (ambientValue) ambientValue.textContent = `${n}%`;
+  if (floatingAmbientValue) floatingAmbientValue.textContent = `${n}%`;
   hero.classList.toggle('light-off', !lightOn);
   powerSwitch?.setAttribute('aria-pressed', String(lightOn));
   if (powerLabel) powerLabel.textContent = lightOn ? 'LICHT AN' : 'LICHT AUS';
+  floatingPowerSwitch?.setAttribute('aria-pressed', String(lightOn));
+  if (floatingPowerText) floatingPowerText.textContent = lightOn ? 'AN' : 'AUS';
 
   if (heroImage) {
     if (lightOn) {
@@ -122,11 +132,22 @@ function renderLighting() {
   }
 }
 
-ambientRange?.addEventListener('input', renderLighting);
-powerSwitch?.addEventListener('click', () => {
+function setAmbientFrom(range) {
+  const value = String(Math.max(20, Math.min(100, Number(range?.value || 78))));
+  if (ambientRange) ambientRange.value = value;
+  if (floatingAmbientRange) floatingAmbientRange.value = value;
+  renderLighting();
+}
+
+ambientRange?.addEventListener('input', () => setAmbientFrom(ambientRange));
+floatingAmbientRange?.addEventListener('input', () => setAmbientFrom(floatingAmbientRange));
+
+function toggleGlobalLight() {
   lightOn = !lightOn;
   renderLighting();
-});
+}
+powerSwitch?.addEventListener('click', toggleGlobalLight);
+floatingPowerSwitch?.addEventListener('click', toggleGlobalLight);
 renderLighting();
 
 

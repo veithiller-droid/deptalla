@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css?v=13" />
 </head>
 <body>
   <header class="site-header" id="top">
@@ -194,6 +194,18 @@
     <div><a href="https://elektrotechnik-deptalla.de/impressum/">Impressum</a><a href="https://elektrotechnik-deptalla.de/datenschutz/">Datenschutz</a></div>
   </footer>
 
-  <script src="script.js?v=12"></script>
+  <aside class="floating-light-console" id="floatingLightConsole" aria-label="Schwebende Lichtsteuerung">
+    <button class="floating-power" id="floatingPowerSwitch" type="button" aria-pressed="true" title="Licht an/aus">
+      <span class="floating-power-dot"></span>
+      <span class="floating-power-text">AN</span>
+    </button>
+    <label class="floating-ambient" for="floatingAmbientRange">
+      <span>AMBIENT</span>
+      <input id="floatingAmbientRange" type="range" min="20" max="100" value="78" step="1" />
+      <output id="floatingAmbientValue" for="floatingAmbientRange">78%</output>
+    </label>
+  </aside>
+
+  <script src="script.js?v=13"></script>
 </body>
 </html>
